@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Escolha seu equipamento</title>
+    <title>Escolha seu equipamento (Cores Clássicas)</title>
     <style>
-        /* Importação e Estilos CSS, sem alterações, foram mantidos aqui */
+        /* Importação e Estilos CSS */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        /* Definição de Cores - Retornando ao esquema claro */
+        :root {
+            --light-color: #5d5d5d; /* Cor de texto padrão (escuro) */
+            --highlight-color: #a8d8ea; /* Azul claro para destaque tech */
+            --dark-background: #ffffff; /* Fundo principal claro */
+            --glow-effect: 0 0 8px rgba(255, 255, 255, 0.7); /* Efeito de brilho sutil */
+            --main-gradient: linear-gradient(90deg, #a8d8ea, #ffaaa7); /* Gradiente original */
+        }
 
         body {
             margin: 0;
             height: 100vh;
-            background: linear-gradient(135deg, #a8d8ea, #f9d6c1, #ffaaa7);
+            /* Fundo Original */
+            background: linear-gradient(135deg, #a8d8ea, #f9d6c1, #ffaaa7); 
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            color: var(--light-color);
         }
 
         .container {
@@ -25,36 +36,46 @@
             z-index: 10;
             width: 90%;
             max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding-bottom: 30px;
+            /* Fundo semi-transparente e claro */
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            padding-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5); 
         }
 
         h2 {
-            color: #5d5d5d;
-            font-size: 28px;
+            color: var(--light-color);
+            font-size: 26px;
             margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
 
         .player-info {
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            padding: 15px 30px;
+            border-radius: 8px;
+            padding: 12px 25px;
             display: inline-flex;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            gap: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            border-left: 3px solid #ffaaa7;
         }
 
         .player-avatar {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             overflow: hidden;
             border: 3px solid #ffaaa7;
-            box-shadow: 0 0 15px rgba(255, 170, 167, 0.7);
+            box-shadow: 0 0 8px #ffaaa7;
         }
 
         .player-avatar img {
@@ -64,81 +85,115 @@
         }
 
         .player-name {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
-            color: #5d5d5d;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            color: var(--light-color);
         }
 
         .equipment-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 0 10px;
         }
 
         .category {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 245, 255, 0.8));
-            border-radius: 25px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            /* Fundo Claro para os cards */
+            background: rgba(255, 255, 255, 0.9); 
+            border-radius: 8px; /* Angular */
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            border: 1px solid rgba(168, 216, 234, 0.3);
         }
 
         .category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 10px #a8d8ea;
         }
 
         .category-title {
-            color: #5d5d5d;
-            font-size: 20px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 2px solid #ffaaa7;
-            padding-bottom: 8px;
+            color: var(--light-color);
+            font-size: 18px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--highlight-color);
+            text-shadow: 0 0 5px rgba(168, 216, 234, 0.7);
         }
 
+        /* --- ESTILO TECNOLÓGICO PARA OS BOTÕES DE ESCOLHA (.option) --- */
         .option {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px;
+            /* Fundo da opção mais escuro */
+            background: rgba(245, 245, 255, 0.7); 
+            border-radius: 4px; /* Mais angular */
             padding: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 2px solid transparent;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden; 
+        }
+        
+        /* Linha sutil para o efeito de interface de dados */
+        .option::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(168, 216, 234, 0.5);
         }
 
         .option:hover {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(230, 230, 250, 0.9);
             transform: scale(1.02);
+            border-color: rgba(168, 216, 234, 0.7);
         }
 
         .option.selected {
-            border-color: #ffaaa7;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 0 15px rgba(255, 170, 167, 0.5);
+            border-color: #ffaaa7; /* Cor de borda de seleção mais quente */
+            background: rgba(255, 170, 167, 0.2); /* Fundo de seleção suave */
+            box-shadow: 0 0 8px #ffaaa7; /* Efeito neon de seleção */
+        }
+        
+        .option.selected::after {
+            background: #ffaaa7; /* Linha de destaque acesa */
+            height: 2px;
+            box-shadow: 0 0 5px #ffaaa7;
         }
 
-        .option input {
-            margin-right: 10px;
-            transform: scale(1.2);
+        .option input[type="radio"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
         }
 
         .option-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #a8d8ea, #ffaaa7);
-            border-radius: 10px;
+            /* Estilo Tech para o ícone */
+            width: 35px;
+            height: 35px;
+            background: rgba(168, 216, 234, 0.2);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 12px;
             font-size: 18px;
+            color: var(--light-color);
+            border: 1px solid rgba(168, 216, 234, 0.5);
+        }
+        
+        .option.selected .option-icon {
+            background: #ffaaa7;
             color: white;
+            box-shadow: 0 0 5px #ffaaa7;
         }
 
         .option-info {
@@ -148,48 +203,62 @@
 
         .option-name {
             font-weight: 600;
-            color: #5d5d5d;
-            margin-bottom: 3px;
+            color: var(--light-color);
+            font-size: 14px;
         }
 
         .option-desc {
-            font-size: 12px;
-            color: #8a8a8a;
+            font-size: 11px;
+            color: #777;
         }
+        /* --- FIM ESTILO TECNOLÓGICO PARA BOTÕES DE ESCOLHA --- */
 
+        /* AJUSTE BOTÕES FINAIS */
         .button-container {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            background: linear-gradient(90deg, #a8d8ea, #ffaaa7);
+            /* Mantendo o gradiente original e o estilo compacto */
+            background: var(--main-gradient); 
             border: none;
-            border-radius: 50px;
+            border-radius: 4px; /* Angular */
             cursor: pointer;
-            padding: 18px 50px;
-            font-size: 20px;
+            padding: 12px 25px;
+            min-width: 200px;
+            font-size: 16px;
             font-weight: 600;
             color: white;
             transition: all 0.3s ease;
-            box-shadow: 0 0 30px rgba(168, 216, 234, 0.6);
+            box-shadow: 0 0 15px rgba(168, 216, 234, 0.6); 
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(168, 216, 234, 0.9);
+            box-shadow: 0 0 25px rgba(168, 216, 234, 0.9);
+            filter: brightness(1.1);
         }
 
         .btn-secondary {
-            background: linear-gradient(90deg, #f9d6c1, #ffd3b6);
-            color: #5d5d5d;
+            /* Estilo para o VOLTAR */
+            background: transparent;
+            color: var(--light-color);
+            border: 2px solid var(--light-color);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .btn-secondary:hover {
+            color: #ffaaa7;
+            border-color: #ffaaa7;
+            box-shadow: 0 0 10px rgba(255, 170, 167, 0.7);
         }
 
-        /* Fundo colorido animado */
+        /* --- Fundo animado (Cores originais) --- */
         .bg {
             position: absolute;
             top: 0;
@@ -206,7 +275,7 @@
             filter: blur(70px);
             animation: float 8s infinite ease-in-out alternate;
         }
-
+        
         .circle:nth-child(1) { background: rgba(168, 216, 234, 0.5); width: 300px; height: 300px; top: 10%; left: 10%; animation-delay: 0s; }
         .circle:nth-child(2) { background: rgba(249, 214, 193, 0.5); width: 250px; height: 250px; top: 50%; right: 10%; animation-delay: 2s; }
         .circle:nth-child(3) { background: rgba(255, 170, 167, 0.5); width: 200px; height: 200px; bottom: 10%; left: 20%; animation-delay: 4s; }
@@ -215,6 +284,22 @@
         @keyframes float {
             0% { transform: translateY(0) translateX(0); }
             100% { transform: translateY(-30px) translateX(30px); }
+        }
+
+        /* CORREÇÃO RESPONSIVA */
+        @media (max-width: 600px) {
+            .btn {
+                width: 100%; 
+                margin-bottom: 5px;
+                min-width: auto;
+            }
+            .button-container {
+                gap: 10px;
+                margin-top: 20px;
+            }
+            .container {
+                padding-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -390,7 +475,7 @@
                 playerAvatar.style.display = 'flex';
                 playerAvatar.style.alignItems = 'center';
                 playerAvatar.style.justifyContent = 'center';
-                playerAvatar.style.fontSize = '40px';
+                playerAvatar.style.fontSize = '30px';
             }
             
             // Adicionar interatividade às opções
@@ -438,7 +523,6 @@
                     
                     localStorage.setItem('equipmentSelections', JSON.stringify(selections));
                     
-                    // CORREÇÃO CRÍTICA: Vai para a ROTA /batalha (não o nome do arquivo!)
                     window.location.href = '/batalha'; 
                     
                 } else {
@@ -447,10 +531,10 @@
             });
         });
 
-        // CORREÇÃO CRÍTICA: Volta para a ROTA / (página inicial), não um nome de arquivo
         function goBack() {
-            window.location.href = "/";
+            window.location.href = "/batalha";
         }
+       
     </script>
 </body>
 </html>

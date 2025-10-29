@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     // Carrega a view resources/views/index.blade.php
     return view('index'); 
-})->name('home');
+})->name('index');
 
 // 2. Rota para a Fase 1 (Intermediária, após escolha)
 // Acessada por: http://localhost:8000/fase1
@@ -27,9 +27,16 @@ Route::get('/batalha', function () {
     return view('batalha');
 })->name('batalha');
 
-// 4. Rota para Fase 2 (opcional, pode ser a próxima batalha)
-// Acessada por: http://localhost:8000/fase2
-Route::get('/fase2', function () {
-    // Carrega a view resources/views/batalha.blade.php (ou fase2.blade.php se existir)
-    return view('batalha'); 
-})->name('fase2');
+
+Route::get('/fase12', function () {
+    // Carrega a view resources/views/batalha.blade.php
+    // Esta é a rota que estava causando o erro de "View não encontrada"
+    return view('fase12');
+})->name('fase12');
+
+Route::get('/creditos', function () {
+    // Carrega a view resources/views/batalha.blade.php
+    // Esta é a rota que estava causando o erro de "View não encontrada"
+    return view('creditos');
+})->name('creditos');
+

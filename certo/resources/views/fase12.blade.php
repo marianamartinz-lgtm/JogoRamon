@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batalha Épica - V2 (Automático)</title>
+    <title>Batalha Final - Fase 2</title>
     <!-- Link para Font Awesome (ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Cores Base: #a8d8ea (Azul Claro), #f9d6c1 (Pêssego Claro), #ffaaa7 (Rosa Salmão) */
+        /* Cores Base: #2c1a4d (Roxo Escuro), #1a1a2e (Azul Meia-Noite), #8a2be2 (Azul Violeta), #ff416c (Vermelho Elétrico) */
         
         * {
             margin: 0;
@@ -17,7 +17,8 @@
         }
         
         body {
-            background: linear-gradient(135deg, #a8d8ea, #f9d6c1, #ffaaa7);
+            background: linear-gradient(135deg, #2c1a4d, #1a1a2e, #0a0a1a);
+            color: #e0e0e0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -27,7 +28,6 @@
             overflow-x: hidden;
         }
         
-        /* Efeitos de fundo e Container mantidos */
         body::before {
             content: '';
             position: absolute;
@@ -36,23 +36,25 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(168, 216, 234, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 170, 167, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(249, 214, 193, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 65, 108, 0.2) 0%, transparent 50%);
             z-index: -1;
         }
         
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(10, 10, 20, 0.85); /* Fundo de vidro escuro */
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(138, 43, 226, 0.2);
             width: 100%;
             max-width: 1400px;
             padding: 30px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            /* MUDANÇA: Permitir scroll se a tela for pequena */
+            max-height: 95vh;
+            overflow-y: auto;
         }
 
         .tech-grid {
@@ -62,8 +64,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(168, 216, 234, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(168, 216, 234, 0.1) 1px, transparent 1px);
+                linear-gradient(rgba(138, 43, 226, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(138, 43, 226, 0.1) 1px, transparent 1px);
             background-size: 30px 30px;
             z-index: 0;
             opacity: 0.3;
@@ -75,7 +77,7 @@
             align-items: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
             position: relative;
             z-index: 1;
         }
@@ -83,34 +85,33 @@
         .logo {
             font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(135deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(135deg, #8a2be2, #4169e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .game-info {
             display: flex;
             gap: 20px;
             font-weight: 600;
-            color: #5d5d5d;
+            color: #c0c0c0;
         }
 
         .game-info span {
-            background: rgba(168, 216, 234, 0.2);
+            background: rgba(138, 43, 226, 0.2);
             padding: 8px 16px;
             border-radius: 20px;
         }
 
-        /* Estrutura principal com a inversão dos painéis */
         .main-layout {
             display: flex;
             gap: 30px;
-            margin-bottom: 30px;
+            /* MUDANÇA: Removido margin-bottom para os créditos ficarem no final */
         }
 
         .left-panel {
-            flex: 1; /* Novo: Painel do Log/Botões na Esquerda */
+            flex: 1;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -119,24 +120,23 @@
         }
 
         .right-panel {
-            flex: 3; /* Novo: Painel Principal do Combate na Direita */
+            flex: 3;
             display: flex;
             flex-direction: column;
             gap: 30px;
         }
 
-        /* Log de Batalha */
         .battle-log {
             flex: 2;
-            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            background: linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(30, 30, 40, 0.9));
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.3);
             position: relative;
             z-index: 1;
             overflow-y: auto;
-            max-height: 350px; /* Altura máxima ajustada */
+            max-height: 350px;
             min-height: 350px; /* MUDANÇA: Altura mínima para não encolher */
         }
         
@@ -147,13 +147,13 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(90deg, #8a2be2, #ff416c);
         }
 
         .log-title {
             font-size: 18px;
             font-weight: 700;
-            color: #5d5d5d;
+            color: #e0e0e0;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -164,6 +164,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            color: #ccc; /* Cor de texto padrão do log */
         }
 
         .log-message {
@@ -174,27 +175,26 @@
         }
 
         .player-message {
-            background: rgba(168, 216, 234, 0.1);
-            border-left: 4px solid #a8d8ea;
+            background: rgba(65, 105, 225, 0.1);
+            border-left: 4px solid #4169e1;
         }
 
         .enemy-message {
-            background: rgba(255, 170, 167, 0.1);
-            border-left: 4px solid #ffaaa7;
+            background: rgba(255, 65, 108, 0.1);
+            border-left: 4px solid #ff416c;
         }
 
         .system-message {
-            background: rgba(249, 214, 193, 0.1);
-            border-left: 4px solid #f9d6c1;
+            background: rgba(138, 43, 226, 0.1);
+            border-left: 4px solid #8a2be2;
             text-align: center;
             font-weight: 600;
         }
         
-        /* NOVO EFEITO: Ataque Crítico */
         .critical-message {
-            background: rgba(255, 165, 0, 0.2); /* Laranja */
-            border: 2px solid orange;
-            color: #cc6600;
+            background: rgba(255, 107, 107, 0.2); /* Vermelho Crítico */
+            border: 2px solid #ff6b6b;
+            color: #ffc1c1;
             font-weight: 700;
             text-align: center;
             animation: flashCrit 0.3s ease-in-out;
@@ -202,12 +202,10 @@
         
         @keyframes flashCrit {
             0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 20px #ff6b6b; }
             100% { transform: scale(1); opacity: 0.8; }
         }
-        /* FIM NOVO EFEITO: Ataque Crítico */
         
-        /* Botões de Ação (Transferidos para o Painel Esquerdo) */
         .action-buttons {
             flex: 1;
             display: flex;
@@ -228,39 +226,39 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-menu {
-            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-            color: #5d5d5d;
+            background: linear-gradient(135deg, #444, #222);
+            color: #e0e0e0;
         }
 
         .btn-menu:hover {
-            background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+            background: linear-gradient(135deg, #555, #333);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         .btn-next {
-            background: linear-gradient(135deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(135deg, #8a2be2, #4169e1);
             color: white;
         }
 
         .btn-next:hover {
-            background: linear-gradient(135deg, #97c7d9, #e89996);
+            background: linear-gradient(135deg, #9a3be2, #5179e1);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(168, 216, 234, 0.3);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
         }
 
         .btn-next:disabled {
-            background: #cccccc;
+            background: #555;
+            color: #888;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
 
-        /* Container de Batalha (Transferido para o Painel Direito - Topo) */
         .battle-container {
             display: flex;
             justify-content: space-between;
@@ -269,7 +267,7 @@
             position: relative;
             z-index: 1;
             padding: 20px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
         }
 
         .player-card, .enemy-card {
@@ -277,14 +275,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            background: linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(30, 30, 40, 0.9));
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.3);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease; /* Para a animação de pulso */
+            transition: all 0.3s ease;
         }
 
         .player-card::before, .enemy-card::before {
@@ -297,70 +295,63 @@
         }
 
         .player-card::before {
-            background: linear-gradient(90deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(90deg, #4169e1, #8a2be2);
         }
 
         .enemy-card::before {
-            background: linear-gradient(90deg, #f9d6c1, #ffd3b6);
+            background: linear-gradient(90deg, #ff416c, #ffaf4c);
         }
         
-        /* NOVO EFEITO: Animação de Pulso (Cura) */
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); }
-            50% { transform: scale(1.02); box-shadow: 0 0 30px rgba(168, 216, 234, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); }
+            0% { transform: scale(1); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+            50% { transform: scale(1.02); box-shadow: 0 0 30px rgba(65, 105, 225, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
         }
 
         .pulse-heal {
             animation: pulse 0.5s ease-in-out;
         }
-        /* FIM NOVO EFEITO: Animação de Pulso (Cura) */
 
         .character-photo {
             width: 180px;
             height: 180px;
             border-radius: 20px;
-            background: linear-gradient(135deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(135deg, #4169e1, #8a2be2);
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 4px solid white;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: 4px solid #1a1a2e;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
         }
         
         .enemy-photo {
-            background: linear-gradient(135deg, #f9d6c1, #ffd3b6);
+            background: linear-gradient(135deg, #ff416c, #ffaf4c);
         }
         
-        /* Estilo unificado para ambas as imagens */
         .player-image, .monster-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px; /* Arredondamento interno */
+            border-radius: 15px;
         }
 
         .character-name {
             font-size: 24px;
             font-weight: 800;
-            color: #5d5d5d;
+            color: #e0e0e0;
             margin-bottom: 5px;
-        }
-
-        .enemy-name {
-            color: #5d5d5d; /* Ajustado para consistência */
         }
 
         .health-bar {
             width: 100%;
             height: 20px;
-            background: #f0f0f0;
+            background: #1a1a2e;
             border-radius: 10px;
             overflow: hidden;
             margin: 15px 0;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .health-fill {
@@ -370,28 +361,27 @@
         }
 
         .player-health {
-            background: linear-gradient(90deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(90deg, #4169e1, #8a2be2);
         }
 
         .enemy-health {
-            background: linear-gradient(90deg, #f9d6c1, #ffd3b6);
+            background: linear-gradient(90deg, #ff416c, #ffaf4c);
         }
 
         .health-text {
             font-weight: 600;
             font-size: 14px;
             margin-bottom: 10px;
-            color: #5d5d5d;
+            color: #c0c0c0;
         }
 
         .vs {
             font-size: 40px;
             font-weight: 900;
-            color: #ffaaa7;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #ff416c;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
-        /* Container de Ações (Transferido para o Painel Direito - Baixo) */
         .actions-container {
             display: flex;
             flex-direction: column;
@@ -407,21 +397,21 @@
 
         .action-category {
             flex: 1;
-            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            background: linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(30, 30, 40, 0.9));
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.3);
             position: relative;
             overflow: hidden;
         }
         
         .action-category.category-powers::before {
-             background: linear-gradient(90deg, #a8d8ea, #ffaaa7);
+             background: linear-gradient(90deg, #8a2be2, #ff416c);
         }
         
         .action-category.category-utility::before {
-             background: linear-gradient(90deg, #f9d6c1, #a8d8ea);
+             background: linear-gradient(90deg, #4169e1, #8a2be2);
         }
 
         .action-category::before {
@@ -431,13 +421,12 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, #a8d8ea, #ffaaa7);
         }
 
         .category-title {
             font-size: 20px;
             font-weight: 700;
-            color: #5d5d5d;
+            color: #e0e0e0;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -446,14 +435,14 @@
 
         .category-title i {
             font-size: 22px;
-            background: linear-gradient(135deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(135deg, #8a2be2, #4169e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .actions-list {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 colunas para acomodar o novo item */
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
         }
 
@@ -463,19 +452,19 @@
             align-items: center;
             gap: 10px;
             padding: 20px 10px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(138, 43, 226, 0.2);
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s;
-            background: white;
+            background: #1a1a2e;
             text-align: center;
         }
 
         .action-btn:hover {
-            background: #f8f9ff;
-            border-color: rgba(168, 216, 234, 0.2);
+            background: #2a2a3e;
+            border-color: rgba(138, 43, 226, 0.4);
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .action-btn:active {
@@ -486,28 +475,33 @@
             width: 60px;
             height: 60px;
             border-radius: 15px;
-            background: linear-gradient(135deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(135deg, #8a2be2, #4169e1);
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 28px;
             color: white;
-            box-shadow: 0 4px 8px rgba(168, 216, 234, 0.2);
+            box-shadow: 0 4px 8px rgba(138, 43, 226, 0.2);
         }
-
+        
+        /* Ícone de Habilidade Ultimate */
+        .action-btn[data-action="supernova"] .action-icon {
+             background: linear-gradient(135deg, #ff416c, #ffaf4c);
+             box-shadow: 0 4px 8px rgba(255, 65, 108, 0.2);
+        }
+        
         .action-name {
             font-weight: 600;
-            color: #5d5d5d;
-            font-size: 14px; /* Diminuído para caber melhor 3 colunas */
+            color: #e0e0e0;
+            font-size: 14px;
         }
 
         .action-damage {
             font-size: 12px;
-            color: #ffaaa7;
+            color: #ffaf4c;
             font-weight: 600;
         }
         
-        /* Outros estilos (victory-overlay, shake, glow) mantidos */
         .victory-overlay, .defeat-overlay {
             position: fixed;
             top: 0;
@@ -530,15 +524,17 @@
         }
 
         .result-card {
-            background: white;
+            background: #1a1a2e;
+            color: #e0e0e0;
             border-radius: 20px;
             padding: 40px;
             text-align: center;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             transform: scale(0.8);
             transition: transform 0.5s ease;
+            border: 1px solid rgba(138, 43, 226, 0.3);
         }
 
         .victory-overlay.active .result-card, .defeat-overlay.active .result-card {
@@ -551,11 +547,11 @@
         }
 
         .victory-icon {
-            color: #a8d8ea;
+            color: #4169e1;
         }
 
         .defeat-icon {
-            color: #ffaaa7;
+            color: #ff416c;
         }
 
         .result-title {
@@ -565,20 +561,20 @@
         }
 
         .victory-title {
-            background: linear-gradient(135deg, #a8d8ea, #ffaaa7);
+            background: linear-gradient(135deg, #8a2be2, #4169e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .defeat-title {
-            background: linear-gradient(135deg, #ffaaa7, #f9d6c1);
+            background: linear-gradient(135deg, #ff416c, #ffaf4c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .result-message {
             font-size: 18px;
-            color: #666;
+            color: #c0c0c0;
             margin-bottom: 30px;
         }
 
@@ -602,7 +598,6 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(168, 216, 234, 0.2) 0%, transparent 70%);
             filter: blur(20px);
             z-index: 0;
         }
@@ -610,12 +605,25 @@
         .glow-1 {
             top: -50px;
             right: -50px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.2) 0%, transparent 70%);
         }
 
         .glow-2 {
             bottom: -50px;
             left: -50px;
-            background: radial-gradient(circle, rgba(255, 170, 167, 0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 65, 108, 0.2) 0%, transparent 70%);
+        }
+        
+        /* MUDANÇA: Estilo para os créditos */
+        .credits {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(138, 43, 226, 0.2);
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            position: relative; /* Para ficar acima do tech-grid */
+            z-index: 1;
         }
         
     </style>
@@ -629,12 +637,12 @@
     <div class="victory-overlay" id="victory-overlay">
         <div class="result-card">
             <div class="result-icon victory-icon">
-                <i class="fas fa-trophy"></i>
+                <i class="fas fa-crown"></i>
             </div>
-            <h2 class="result-title victory-title">Vitória!</h2>
-            <p class="result-message">Você derrotou o monstro e avançou para a próxima fase!</p>
+            <h2 class="result-title victory-title">Vitória Final!</h2>
+            <p class="result-message">Você salvou o mundo! O Lorde do Caos foi derrotado.</p>
             <button class="btn-next" id="next-phase-btn">
-                <i class="fas fa-arrow-right"></i> Próxima Fase
+                <i class="fas fa-scroll"></i> Ver Créditos
             </button>
         </div>
     </div>
@@ -643,13 +651,12 @@
     <div class="defeat-overlay" id="defeat-overlay">
         <div class="result-card">
             <div class="result-icon defeat-icon">
-                <i class="fas fa-skull"></i>
+                <i class="fas fa-skull-crossbones"></i>
             </div>
-            <h2 class="result-title defeat-title">Derrota!</h2>
-            <p class="result-message">Você foi derrotado. O oponente venceu.</p>
-            <!-- Este botão agora redireciona conforme solicitado -->
+            <h2 class="result-title defeat-title">Fim de Jogo</h2>
+            <p class="result-message">O Lorde do Caos venceu. Tente novamente.</p>
             <button class="btn-next" id="retry-btn">
-                <i class="fas fa-arrow-right"></i> Continuar
+                <i class="fas fa-redo"></i> Tentar Novamente
             </button>
         </div>
     </div>
@@ -659,10 +666,10 @@
         <div class="tech-grid"></div>
         
         <div class="header">
-            <div class="logo">Batalha Épica V2</div>
+            <div class="logo">Batalha Final</div>
             <div class="game-info">
-                <span>Fase: 1</span>
-                <span>Inimigos: 1/3</span>
+                <span>Fase: 2 (Final)</span>
+                <span>Inimigos: 1/1</span>
                 <span>Pontuação: <span id="score-text">0</span></span>
             </div>
         </div>
@@ -672,11 +679,11 @@
             <div class="left-panel">
                 <div class="battle-log">
                     <div class="log-title">
-                        <i class="fas fa-scroll"></i> Registro de Batalha
+                        <i class="fas fa-book-dead"></i> Registro de Batalha
                     </div>
                     <div class="log-messages" id="battle-log">
                         <div class="log-message system-message">
-                            A batalha começou! Escolha uma ação.
+                            O Lorde do Caos apareceu! Esta é a batalha final.
                         </div>
                     </div>
                 </div>
@@ -685,7 +692,7 @@
                     <button class="btn-menu" id="menu-btn" onclick="goToMenu()">
                         <i class="fas fa-bars"></i> Menu Principal
                     </button>
-                    <!-- MUDANÇA: Botão "Próximo Turno" escondido -->
+                    <!-- MUDANÇA: Botão escondido para turno automático -->
                     <button class="btn-next" id="next-turn-btn" disabled style="display: none;">
                         <i class="fas fa-forward"></i> Próximo Turno
                     </button>
@@ -702,26 +709,25 @@
                             <div style="text-align: center; color: white; font-size: 14px; padding: 10px;">Seu Personagem</div>
                         </div>
                         <h2 class="character-name" id="player-name">Herói</h2>
-                        <div class="health-text">Vida: <span id="player-health-text">100</span>/100</div>
+                        <div class="health-text">Vida: <span id="player-health-text">100/100</span></div>
                         <div class="health-bar">
                             <div class="health-fill player-health" id="player-health-bar" style="width: 100%"></div>
                         </div>
-                        <div class="status">Pronto para lutar!</div>
+                        <div class="status">Pronto para a batalha final!</div>
                     </div>
                     
                     <div class="vs">VS</div>
                     
                     <div class="enemy-card" id="enemy-card">
                         <div class="character-photo enemy-photo">
-                            <!-- Garanta que a imagem 'mostro.png' exista no mesmo diretório -->
-                            <img src="https...placehold.co/180x180/ffd3b6/8a8a8a?text=Monstro" alt="Monstro Assustador" class="monster-image" onerror="this.src='https://placehold.co/180x180/ffd3b6/8a8a8a?text=Monstro'">
+                            <img src="https://placehold.co/180x180/8a2be2/ffffff?text=Lorde+do+Caos" alt="Lorde do Caos" class="monster-image">
                         </div>
-                        <h2 class="character-name enemy-name" id="enemy-name">Dragão das Sombras</h2>
-                        <div class="health-text">Vida: <span id="enemy-health-text">100</span>/100</div>
+                        <h2 class="character-name enemy-name" id="enemy-name">Lorde do Caos</h2>
+                        <div class="health-text">Vida: <span id="enemy-health-text">200/200</span></div>
                         <div class="health-bar">
                             <div class="health-fill enemy-health" id="enemy-health-bar" style="width: 100%"></div>
                         </div>
-                        <div class="status">Aguardando ataque...</div>
+                        <div class="status">O fim está próximo...</div>
                     </div>
                 </div>
                 
@@ -737,15 +743,17 @@
                                     <div class="action-name">Soco</div>
                                     <div class="action-damage">10 Dano</div>
                                 </div>
-                                <div class="action-btn" data-action="raio-laser" data-damage="30">
-                                    <div class="action-icon">🔫</div>
-                                    <div class="action-name">Raio Laser</div>
-                                    <div class="action-damage">30 Dano</div>
+                                <!-- HABILIDADE MELHORADA -->
+                                <div class="action-btn" data-action="raio-prismatico" data-damage="40">
+                                    <div class="action-icon">✨</div>
+                                    <div class="action-name">Raio Prismático</div>
+                                    <div class="action-damage">40 Dano</div>
                                 </div>
-                                <div class="action-btn" data-action="ataque-furtivo" data-damage="20">
-                                    <div class="action-icon">🔪</div>
-                                    <div class="action-name">Ataque Furtivo</div>
-                                    <div class="action-damage">20 Dano (+Crítico)</div>
+                                <!-- HABILIDADE ULTIMATE NOVA -->
+                                <div class="action-btn" data-action="supernova" data-damage="80">
+                                    <div class="action-icon">💥</div>
+                                    <div class="action-name">Supernova</div>
+                                    <div class="action-damage">80 Dano (Cooldown)</div>
                                 </div>
                             </div>
                         </div>
@@ -771,6 +779,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- MUDANÇA: Créditos adicionados -->
+        <div class="credits">
+            Jogo desenvolvido por Mariana
+        </div>
     </div>
 
     <script>
@@ -781,13 +794,12 @@
             const enemyHealthBar = document.getElementById('enemy-health-bar');
             const enemyHealthText = document.getElementById('enemy-health-text');
             const battleLogElement = document.getElementById('battle-log');
-            // const nextTurnBtn = document.getElementById('next-turn-btn'); // Não é mais o gatilho principal
+            // const nextTurnBtn = document.getElementById('next-turn-btn'); // MUDANÇA: Não é mais usado
             
-            // Overlays e seus botões
             const victoryOverlay = document.getElementById('victory-overlay');
             const defeatOverlay = document.getElementById('defeat-overlay');
-            const nextPhaseBtn = document.getElementById('next-phase-btn'); // Botão de vitória
-            const retryBtn = document.getElementById('retry-btn');       // Botão de derrota
+            const nextPhaseBtn = document.getElementById('next-phase-btn'); // Botão de vitória (créditos)
+            const retryBtn = document.getElementById('retry-btn');       // Botão de derrota (tentar de novo)
             
             const actionButtons = document.querySelectorAll('.action-btn');
             const playerPhoto = document.getElementById('player-photo');
@@ -796,16 +808,20 @@
             const playerCard = document.getElementById('player-card');
             const enemyCard = document.getElementById('enemy-card');
             
-            // --- Estado do Jogo ---
+            // MUDANÇA: Constantes de vida definidas no topo
+            const maxPlayerHealth = 100;
+            const maxEnemyHealth = 200; // Mais vida para o chefe final
+
+            // --- Estado do Jogo (Fase Final) ---
             let gameState = {
-                playerHealth: 100,
-                enemyHealth: 100,
+                playerHealth: maxPlayerHealth,
+                enemyHealth: maxEnemyHealth, 
                 playerShield: 0,
-                enemyShield: 0, // Não usado atualmente, mas bom ter
+                playerUltimateCooldown: 0, // Cooldown da nova habilidade
                 turn: 0,
                 gameOver: false,
-                score: 0,
-                isPlayerTurn: true // MUDANÇA: Controla de quem é a vez
+                score: parseInt(localStorage.getItem('scoreFase1') || '0'), // Tenta carregar score
+                isPlayerTurn: true // MUDANÇA: Controle de turno automático
             };
             
             // --- Carregar Dados do Jogador (LocalStorage) ---
@@ -828,8 +844,8 @@
             function getActionName(action) {
                 switch(action) {
                     case 'soco': return 'Soco';
-                    case 'raio-laser': return 'Raio Laser';
-                    case 'ataque-furtivo': return 'Ataque Furtivo';
+                    case 'raio-prismatico': return 'Raio Prismático';
+                    case 'supernova': return 'Supernova';
                     case 'kit-medico': return 'Kit Médico';
                     case 'armadura': return 'Armadura';
                     default: return action;
@@ -840,47 +856,44 @@
             function addLogMessage(message, type) {
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('log-message', `${type}-message`);
-                // Usamos innerHTML para renderizar o negrito (**)
                 messageElement.innerHTML = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 battleLogElement.appendChild(messageElement);
-                battleLogElement.scrollTop = battleLogElement.scrollHeight; // Scroll automático
+                battleLogElement.scrollTop = battleLogElement.scrollHeight; 
             }
             
             // Atualiza barras de vida e texto
             function updateHealthBars() {
-                // Garante que a vida não passe dos limites
-                gameState.playerHealth = Math.max(0, Math.min(100, gameState.playerHealth));
-                gameState.enemyHealth = Math.max(0, Math.min(100, gameState.enemyHealth));
+                // MUDANÇA: Garante que o HP não ultrapasse o máximo ao curar
+                gameState.playerHealth = Math.max(0, Math.min(maxPlayerHealth, gameState.playerHealth));
+                gameState.enemyHealth = Math.max(0, Math.min(maxEnemyHealth, gameState.enemyHealth));
 
                 // Jogador
-                playerHealthBar.style.width = `${gameState.playerHealth}%`;
-                playerHealthText.textContent = gameState.playerHealth;
-                playerHealthBar.parentElement.style.backgroundColor = gameState.playerHealth <= 20 ? '#ffbaba' : '#f0f0f0';
+                playerHealthBar.style.width = `${(gameState.playerHealth / maxPlayerHealth) * 100}%`;
+                playerHealthText.textContent = `${gameState.playerHealth}/${maxPlayerHealth}`;
+                playerHealthBar.parentElement.style.backgroundColor = gameState.playerHealth <= 20 ? '#ff416c' : '#1a1a2e'; // Cor de perigo
                 
                 // Inimigo
-                enemyHealthBar.style.width = `${gameState.enemyHealth}%`;
-                enemyHealthText.textContent = gameState.enemyHealth;
-                enemyHealthBar.parentElement.style.backgroundColor = gameState.enemyHealth <= 20 ? '#ffbaba' : '#f0f0f0';
+                enemyHealthBar.style.width = `${(gameState.enemyHealth / maxEnemyHealth) * 100}%`;
+                enemyHealthText.textContent = `${gameState.enemyHealth}/${maxEnemyHealth}`;
+                enemyHealthBar.parentElement.style.backgroundColor = gameState.enemyHealth <= 40 ? '#ff416c' : '#1a1a2e'; // Cor de perigo
                 
                 scoreText.textContent = gameState.score;
             }
             
             // Verifica fim de jogo
             function checkGameOver() {
-                if (gameState.gameOver) return false; // Evita checagem dupla
+                if (gameState.gameOver) return true; // Evita verificação duplicada
 
                 if (gameState.enemyHealth <= 0) {
                     gameState.gameOver = true;
-                    addLogMessage("Vitória! O monstro foi derrotado!", 'system');
+                    addLogMessage("Vitória Final! O Lorde do Caos foi banido!", 'system');
                     victoryOverlay.classList.add('active');
                     disableActions();
-                    // nextTurnBtn.disabled = true; // Botão já está desabilitado e escondido
                 } else if (gameState.playerHealth <= 0) {
                     gameState.gameOver = true;
-                    addLogMessage("Derrota! Você foi nocauteado!", 'system');
+                    addLogMessage("Fim de Jogo. A escuridão venceu.", 'system');
                     defeatOverlay.classList.add('active');
                     disableActions();
-                    // nextTurnBtn.disabled = true; // Botão já está desabilitado e escondido
                 }
                 return gameState.gameOver;
             }
@@ -894,101 +907,123 @@
                 });
             }
             
-            // Habilita botões de ação
+            // Habilita botões de ação e atualiza cooldown
             function enableActions() {
-                if (gameState.gameOver) return; // Não reativar se o jogo acabou
+                if (gameState.gameOver) return; 
 
                 actionButtons.forEach(btn => {
                     btn.style.pointerEvents = 'auto';
                     btn.style.opacity = '1';
                     btn.disabled = false;
+                    
+                    // Lógica de Cooldown para Supernova
+                    if (btn.getAttribute('data-action') === 'supernova') {
+                        const nameEl = btn.querySelector('.action-name');
+                        if (gameState.playerUltimateCooldown > 0) {
+                            nameEl.textContent = `Supernova (${gameState.playerUltimateCooldown}t)`;
+                            btn.style.pointerEvents = 'none';
+                            btn.style.opacity = '0.6';
+                            btn.disabled = true;
+                        } else {
+                            nameEl.textContent = 'Supernova';
+                        }
+                    }
                 });
             }
             
-            // Lógica do ataque inimigo
+            // Lógica do ataque inimigo (Chefe Final)
             function executeEnemyTurn() {
                 if (gameState.gameOver) return;
                 
-                // Ataque aleatório do inimigo
+                // Ataques mais fortes para o chefe final
                 const attacks = [
-                    { name: 'Garra Afiada', damage: 15 },
-                    { name: 'Sopro de Fogo', damage: 20 },
-                    { name: 'Investida', damage: 12 }
+                    { name: 'Golpe Sombrio', damage: 20, heal: 0 },
+                    { name: 'Tempestade Arcana', damage: 30, heal: 0 },
+                    { name: 'Absorver Vida', damage: 15, heal: 15 } // Ataque com cura
                 ];
                 
                 const attack = attacks[Math.floor(Math.random() * attacks.length)];
                 let damage = attack.damage;
                 let logType = 'enemy';
                 
-                // Aplicar escudo se existir
+                // Aplicar escudo
                 if (gameState.playerShield > 0) {
                     const blocked = Math.min(damage, gameState.playerShield);
                     damage -= blocked;
-                    gameState.playerShield = 0; // Escudo quebra após um uso
-                    
+                    gameState.playerShield = 0; 
                     addLogMessage(`Sua armadura bloqueou **${blocked}** de dano!`, 'system');
                 }
                 
                 gameState.playerHealth -= damage;
+                addLogMessage(`Lorde do Caos usou **${attack.name}** e causou **${damage}** de dano!`, logType);
+
+                // Aplicar cura do chefe
+                if (attack.heal > 0) {
+                    gameState.enemyHealth += attack.heal;
+                    addLogMessage(`O Lorde do Caos absorveu **${attack.heal} de vida**!`, 'enemy');
+                }
                 
-                addLogMessage(`O monstro usou **${attack.name}** e causou **${damage}** de dano!`, logType);
-                
+                // Reduzir cooldown do jogador
+                if (gameState.playerUltimateCooldown > 0) {
+                    gameState.playerUltimateCooldown--;
+                }
+
                 // Efeito visual no jogador (Shake)
                 playerCard.classList.add('shake');
                 setTimeout(() => {
                     playerCard.classList.remove('shake');
                 }, 500);
                 
-                // Atualizar interface
                 updateHealthBars();
                 
-                // Verificar se o jogo acabou
+                // MUDANÇA: Verifica se o jogo acabou *antes* de passar o turno
                 if (!checkGameOver()) {
-                    // Reativar ações para o próximo turno do jogador
-                    enableActions();
+                    enableActions(); // Reabilita botões e atualiza UI do cooldown
                     gameState.isPlayerTurn = true; // MUDANÇA: Libera o turno do jogador
-                    addLogMessage("É a sua vez. Escolha uma ação.", 'system');
+                    addLogMessage("É a sua vez. Ataque!", 'system');
                 }
             }
             
             // Executar ação do jogador
             function executePlayerAction(action, damage) {
-                // MUDANÇA: Checa se é o turno do jogador
+                // MUDANÇA: Verifica se é o turno do jogador
                 if (gameState.gameOver || !gameState.isPlayerTurn) return;
                 
                 gameState.isPlayerTurn = false; // MUDANÇA: Trava o turno do jogador
                 
                 let damageValue = 0;
                 let logMessage = '';
-                let isCritical = false;
                 
-                // Desabilitar ações após o clique
                 disableActions();
                 
-                // Processar ação
                 switch(action) {
                     case 'soco':
-                    case 'raio-laser':
                         damageValue = parseInt(damage);
                         break;
                     
-                    case 'ataque-furtivo': // Chance de Crítico
+                    case 'raio-prismatico': // Habilidade melhorada
                         damageValue = parseInt(damage);
-                        if (Math.random() < 0.3) { // 30% de chance de crítico
-                            damageValue *= 2;
-                            isCritical = true;
-                            gameState.score += 5; // Bônus de score
+                        break;
+
+                    case 'supernova': // Habilidade ultimate
+                        if (gameState.playerUltimateCooldown > 0) {
+                            addLogMessage("Habilidade em cooldown!", 'system');
+                            enableActions(); // Reabilita, pois a ação falhou
+                            gameState.isPlayerTurn = true; // MUDANÇA: Devolve o turno
+                            return;
                         }
+                        damageValue = parseInt(damage);
+                        gameState.playerUltimateCooldown = 3; // Define cooldown de 3 turnos
+                        logMessage = `**SUPERNOVA!** Você libera uma explosão cósmica causando **${damageValue}** de dano!`;
+                        addLogMessage(logMessage, 'critical'); // Mensagem especial
                         break;
                         
                     case 'kit-medico':
                         const healAmount = 20;
                         gameState.playerHealth += healAmount;
-                        // updateHealthBars() vai garantir que não passe de 100
                         logMessage = `Você usou o **Kit Médico** e recuperou **${healAmount} de vida**!`;
                         addLogMessage(logMessage, 'player');
                         
-                        // Efeito visual: Pulso (Cura)
                         playerCard.classList.add('pulse-heal');
                         setTimeout(() => {
                             playerCard.classList.remove('pulse-heal');
@@ -1002,45 +1037,41 @@
                         break;
                 }
                 
-                if (damageValue > 0) {
+                if (damageValue > 0 && action !== 'supernova') { // Supernova já tem log
                     gameState.enemyHealth -= damageValue;
                     gameState.score += damageValue;
-                    
                     logMessage = `Você usou **${getActionName(action)}** e causou **${damageValue}** de dano!`;
-                    if (isCritical) {
-                        addLogMessage(`Ataque Crítico! **${damageValue}** de dano!`, 'critical');
-                    } else {
-                        addLogMessage(logMessage, 'player');
-                    }
-                    
-                    // Efeito visual no inimigo (Shake)
+                    addLogMessage(logMessage, 'player');
+                } else if (damageValue > 0 && action === 'supernova') {
+                    // Dano da supernova
+                    gameState.enemyHealth -= damageValue;
+                    gameState.score += damageValue;
+                }
+
+                if (damageValue > 0) {
                     enemyCard.classList.add('shake');
                     setTimeout(() => {
                         enemyCard.classList.remove('shake');
                     }, 500);
                 }
                 
-                // Atualizar interface
                 updateHealthBars();
                 
-                // MUDANÇA: Iniciar turno automático do inimigo
+                // MUDANÇA: Inicia o turno do inimigo automaticamente
                 if (!checkGameOver()) {
-                    addLogMessage("Sua ação concluída. Aguarde o inimigo...", 'system');
-                    
-                    // Atraso para o turno do inimigo
+                    addLogMessage("Sua ação concluída. Aguarde o Lorde do Caos...", 'system');
                     setTimeout(() => {
-                        addLogMessage("--- Turno do Inimigo ---", 'system');
+                        addLogMessage("--- Turno do Lorde do Caos ---", 'system');
                         executeEnemyTurn();
-                    }, 1500); // 1.5 segundos de atraso
+                    }, 1500); // 1.5s de atraso
                 }
             }
             
             // --- Adicionar Eventos aos Botões ---
             
-            // Botões de Ação (Ataque, Cura, etc)
             actionButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // MUDANÇA: Checa a flag 'isPlayerTurn'
+                    // MUDANÇA: Verifica pela flag de turno
                     if (gameState.gameOver || !gameState.isPlayerTurn) return;
                     
                     const action = this.getAttribute('data-action');
@@ -1050,31 +1081,30 @@
                 });
             });
             
-            // MUDANÇA: O listener do 'nextTurnBtn' foi REMOVIDO
+            // MUDANÇA: Event listener do 'nextTurnBtn' removido
             
             // Botão "Menu Principal"
             window.goToMenu = function() {
-                // Removemos o 'alert'
                 console.log("Redirecionando para o Menu Principal...");
-                window.location.href = '/'; // Altere para o link do seu menu
+                window.location.href = 'index'; // Altere para o link do seu menu
             }
 
-            // Botão "Próxima Fase" (Tela de Vitória)
+            // Botão "Ver Créditos" (Tela de Vitória)
             nextPhaseBtn.addEventListener('click', function() {
-                // Simula ir para a próxima fase.
-                console.log("Redirecionando para a próxima fase...");
-                window.location.href = 'fase12'; // Altere para o link da próxima fase
+                console.log("Redirecionando para os créditos...");
+                window.location.href = 'creditos'; // Altere para sua página de créditos
             });
 
-            // Botão "Continuar" (Tela de Derrota) - **CONFORME SOLICITADO**
+            // Botão "Tentar Novamente" (Tela de Derrota)
             retryBtn.addEventListener('click', function() {
-                // Redireciona para a fase 12 quando o oponente vence (jogador perde)
-                console.log("Oponente venceu. Redirecionando para fase-seguinte");
-                window.location.href = 'fase12'; 
+                // Recarrega a página da fase final para tentar de novo
+                window.location.reload(); 
             });
 
             // --- Inicialização ---
             updateHealthBars(); // Garante que a vida inicial esteja correta
+            // MUDANÇA: Mensagem de log corrigida
+            addLogMessage(`Pontuação da Fase 1 carregada: ${gameState.score}`, 'system');
         });
     </script>
 
