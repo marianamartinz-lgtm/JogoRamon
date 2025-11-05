@@ -1,45 +1,25 @@
- // App/Http/Controllers/ProductController.php
+<?php
 
-use App\Models\Product;
-use Illuminate\Http\Request;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class ProductController extends Controller
+return new class extends Migration
 {
-    // ... (métodos index, create, store)
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param  \App\Models\Product  $product
-     */
-    public function edit(Product $product)
+    public function up(): void
     {
-        // O Laravel (com injeção de dependência) já busca o produto
-        // baseado no ID passado na rota.
-        return view('products.edit', compact('product'));
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 100);
+            $table->decimal('price', 8, 2);
+            $table->integer('stock');
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
-     */
-    public function update(Request $request, Product $product)
+    public function down(): void
     {
-        // 1. Validação dos dados (MUITO IMPORTANTE!)
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'description' => 'nullable|string',
-        ]);
-
-        // 2. Atualiza o registro no banco
-        $product->update($validatedData);
-
-        // 3. Redirecionamento após salvar
-        return redirect()->route('products.index')
-                         ->with('success', 'Produto atualizado com sucesso!');
+        Schema::dropIfExists('products');
     }
-
-    // ... (restante do Controller)
-}
+};

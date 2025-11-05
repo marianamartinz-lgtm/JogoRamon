@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema; // 🔹 Importa o Schema
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // 🔹 Define o tamanho padrão seguro para strings em índices
+        Schema::defaultStringLength(191);
     }
 }
